@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Sergio | Logo Impactante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-green: #3cf352;
+            --mint: #a5d6a7;
+            --dark-green: #007900;
+            --white: #ffffff;
+            --whatsapp: #25d366;
+            /* ALTURA DE LA BARRA (Aumentada para el logo) */
+            --nav-height: 180px; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-green); color: var(--dark-green); padding-top: var(--nav-height); }
+
+        /* --- NAVBAR Y LOGO --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            background: var(--bg-green); display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; z-index: 2000;
+            border-bottom: 3px solid var(--mint); box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 10px 0;
+        }
+
+        .logo-container {
+            height: 170px; /* AQUÍ CONTROLAS EL TAMAÑO DEL LOGO */
+            margin-bottom: 2px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            /* Filtro opcional para dar sombra suave al logo */
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); 
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* --- BUSCADOR --- */
+        .search-area { padding: 40px 20px; text-align: center; }
+        #menuSearch {
+            width: 90%; max-width: 550px; padding: 18px 30px; border-radius: 50px;
+            border: 2px solid var(--mint); outline: none; font-size: 1.1rem; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        /* --- CUADRÍCULA --- */
+        .container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+
+        .card {
+            background: var(--white); border-radius: 25px; overflow: hidden; 
+            border: 1px solid rgba(165, 214, 167, 0.3); cursor: pointer; transition: 0.3s ease;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--dark-green); }
+        .card img { width: 100%; height: 240px; object-fit: cover; }
+        .card-info { padding: 25px; text-align: center; }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 3000;
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-box { background: var(--white); max-width: 550px; width: 100%; border-radius: 30px; overflow: hidden; position: relative; }
+        .close { position: absolute; top: 15px; right: 25px; font-size: 40px; color: white; cursor: pointer; z-index: 10; }
+        .modal-body { padding: 35px; }
+        .btn-wa {
+            display: block; background: var(--whatsapp); color: white; text-align: center;
+            padding: 18px; text-decoration: none; font-weight: 600; border-radius: 50px; margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="img/jicamaslogo.png" alt="Logo" class="logo-img">
+        </div>
+        
+    </nav>
+
+    <div class="search-area">
+        <input type="text" id="menuSearch" placeholder="Busca tu platillo o ingrediente favorito...">
+    </div>
+
+    <div class="container">
+        <div class="menu-grid" id="grid"></div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-box">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="m-img" src="" style="width: 100%; height: 280px; object-fit: cover;">
+            <div class="modal-body">
+                <h2 id="m-title" style="font-family: 'Playfair Display'; color: var(--dark-green);"></h2>
+                <p id="m-desc" style="margin: 15px 0; color: #444; line-height: 1.6;"></p>
+                <div style="background: var(--bg-green); padding: 20px; border-radius: 20px; font-size: 0.95rem;">
+                    <strong>🥬 Ingredientes:</strong> <span id="m-ing"></span><br>
+                    <strong>⏱️ Tiempo:</strong> <span id="m-time"></span>
+                </div>
+                <a id="m-wa" href="#" target="_blank" class="btn-wa">🛒 Realizar Pedido por WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TEL_WHATSAPP = "524774902892";
+
+        // === BLOQUE DE EDICIÓN DE PLATILLOS ===
+        const platillos = [
+            {
+                nombre: "Espaguetti",
+                precio: "30   $50   $60",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "20 min",
+                imagen: ""
+            },
+            {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+
+             {
+                nombre: "Ensalada Premium",
+                precio: "18.00",
+                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
+                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                tiempo: "12 min",
+                imagen: "https://picsum.photos/600/400?random=10"
+            },
+        ];
+
+        
+        const grid = document.getElementById('grid');
+        const modal = document.getElementById('modal');
+
+        function render() {
+            grid.innerHTML = platillos.map((p, i) => `
+                <div class="card" onclick="openModal(${i})">
+                    <img src="${p.imagen}" loading="lazy">
+                    <div class="card-info">
+                        <h3 style="font-family: 'Playfair Display';">${p.nombre}</h3>
+                        <p style="font-weight: 700; margin-top: 8px; font-size: 1.2rem;">$${p.precio}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(i) {
+            const p = platillos[i];
+            document.getElementById('m-img').src = p.imagen;
+            document.getElementById('m-title').innerText = p.nombre;
+            document.getElementById('m-desc').innerText = p.descripcion;
+            document.getElementById('m-ing').innerText = p.ingredientes;
+            document.getElementById('m-time').innerText = p.tiempo;
+            document.getElementById('m-wa').href = `https://wa.me/${TEL_WHATSAPP}?text=Hola! Me interesa el ${p.nombre}`;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() { modal.style.display = "none"; }
+        window.onclick = (e) => { if(e.target == modal) closeModal(); }
+
+        document.getElementById('menuSearch').oninput = (e) => {
+            const val = e.target.value.toLowerCase();
+            document.querySelectorAll('.card').forEach((card, i) => {
+                const match = platillos[i].nombre.toLowerCase().includes(val) || 
+                              platillos[i].ingredientes.toLowerCase().includes(val);
+                card.style.display = match ? "block" : "none";
+            });
+        };
+
+        render();
+    </script>
+</body>
+</html>

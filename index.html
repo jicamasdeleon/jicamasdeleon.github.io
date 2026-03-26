@@ -3,74 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Sergio | Logo Impactante</title>
+    <title>Menú | Jicamas de Leon</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-green: #3cf352;
-            --mint: #a5d6a7;
-            --dark-green: #007900;
+            --primary: #00ff37;
+            --bg-light: #47ff47;
+            --dark-green: #009e42;
+            --mint: #72ff77;
             --white: #ffffff;
             --whatsapp: #25d366;
-            /* ALTURA DE LA BARRA (Aumentada para el logo) */
-            --nav-height: 180px; 
+            --nav-height: 160px; 
+        }
+
+        /* EVITA EL TEMBLOR: Forzar scrollbar y suavizar renderizado */
+        html { 
+            overflow-y: scroll; 
+            scroll-behavior: smooth;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg-green); color: var(--dark-green); padding-top: var(--nav-height); }
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--bg-light); 
+            padding-top: var(--nav-height); 
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* --- NAVBAR Y LOGO --- */
+        /* --- NAVBAR --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
-            background: var(--bg-green); display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; z-index: 2000;
-            border-bottom: 3px solid var(--mint); box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            padding: 10px 0;
+            background: var(--white); display: flex; justify-content: center; align-items: center;
+            z-index: 2000; border-bottom: 4px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
-
-        .logo-container {
-            height: 170px; /* AQUÍ CONTROLAS EL TAMAÑO DEL LOGO */
-            margin-bottom: 2px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .logo-img {
-            height: 100%;
-            width: auto;
-            object-fit: contain;
-            /* Filtro opcional para dar sombra suave al logo */
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); 
-        }
-
-        .brand-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 700;
+        
+        /* Dimensiones fijas para evitar saltos de diseño */
+        .logo-container img { 
+            height: 120px; 
+            width: auto; 
+            min-width: 120px;
+            object-fit: contain; 
         }
 
         /* --- BUSCADOR --- */
         .search-area { padding: 40px 20px; text-align: center; }
         #menuSearch {
-            width: 90%; max-width: 550px; padding: 18px 30px; border-radius: 50px;
-            border: 2px solid var(--mint); outline: none; font-size: 1.1rem; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            width: 90%; max-width: 500px; padding: 15px 25px; border-radius: 50px;
+            border: 2px solid var(--mint); outline: none; font-size: 1rem;
+            transition: border-color 0.3s; 
         }
+        #menuSearch:focus { border-color: var(--primary); }
 
-        /* --- CUADRÍCULA --- */
+        /* --- GRID --- */
         .container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-
-        .card {
-            background: var(--white); border-radius: 25px; overflow: hidden; 
-            border: 1px solid rgba(165, 214, 167, 0.3); cursor: pointer; transition: 0.3s ease;
+        .menu-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 30px; 
         }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--dark-green); }
-        .card img { width: 100%; height: 240px; object-fit: cover; }
-        .card-info { padding: 25px; text-align: center; }
+
+        /* Tarjetas con optimización de animación */
+        .card {
+            background: var(--white); border-radius: 25px; overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s;
+            cursor: pointer; border: 1px solid #eee;
+            backface-visibility: hidden; /* Evita vibración en Chrome/Safari */
+        }
+        .card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
+        }
+        .card img { width: 100%; height: 220px; object-fit: cover; background: #f0f0f0; }
+        .card-info { padding: 20px; text-align: center; }
+        .card-info h3 { font-family: 'Playfair Display'; font-size: 1.4rem; color: var(--dark-green); }
+        .price { font-weight: 700; color: var(--dark-green); font-size: 1.2rem; margin-top: 10px; }
 
         /* --- MODAL --- */
         .modal {
@@ -78,12 +88,23 @@
             background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 3000;
             justify-content: center; align-items: center; padding: 20px;
         }
-        .modal-box { background: var(--white); max-width: 550px; width: 100%; border-radius: 30px; overflow: hidden; position: relative; }
-        .close { position: absolute; top: 15px; right: 25px; font-size: 40px; color: white; cursor: pointer; z-index: 10; }
-        .modal-body { padding: 35px; }
+        .modal.active { display: flex; }
+        .modal-box { 
+            background: var(--white); max-width: 500px; width: 100%; 
+            border-radius: 30px; overflow: hidden; position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .close { position: absolute; top: 15px; right: 20px; font-size: 35px; color: white; cursor: pointer; z-index: 10; }
+        .modal-body { padding: 30px; }
+        .details-box { 
+            background: #f1fbf1; padding: 20px; border-radius: 20px; 
+            margin: 20px 0; border-left: 5px solid var(--primary);
+        }
         .btn-wa {
             display: block; background: var(--whatsapp); color: white; text-align: center;
-            padding: 18px; text-decoration: none; font-weight: 600; border-radius: 50px; margin-top: 25px;
+            padding: 18px; text-decoration: none; font-weight: 600; border-radius: 50px;
         }
     </style>
 </head>
@@ -91,222 +112,154 @@
 
     <nav>
         <div class="logo-container">
-            <img src="img/jicamaslogo.png" alt="Logo" class="logo-img">
+            <img src="img/jicamaslogo.png" alt="Logo Sergio" width="130" height="130">
         </div>
-        
     </nav>
 
     <div class="search-area">
-        <input type="text" id="menuSearch" placeholder="Busca tu platillo o ingrediente favorito...">
+        <input type="text" id="menuSearch" placeholder="Busca tu platillo favorito...">
     </div>
 
     <div class="container">
         <div class="menu-grid" id="grid"></div>
     </div>
 
-    <div id="modal" class="modal">
-        <div class="modal-box">
+    <div id="modal" class="modal" onclick="closeModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
             <span class="close" onclick="closeModal()">&times;</span>
-            <img id="m-img" src="" style="width: 100%; height: 280px; object-fit: cover;">
+            <img id="m-img" src="" style="width: 100%; height: 250px; object-fit: cover;">
             <div class="modal-body">
                 <h2 id="m-title" style="font-family: 'Playfair Display'; color: var(--dark-green);"></h2>
-                <p id="m-desc" style="margin: 15px 0; color: #444; line-height: 1.6;"></p>
-                <div style="background: var(--bg-green); padding: 20px; border-radius: 20px; font-size: 0.95rem;">
-                    <strong>🥬 Ingredientes:</strong> <span id="m-ing"></span><br>
+                <p id="m-desc" style="margin: 15px 0; color: #555;"></p>
+                <div class="details-box">
+                    <strong>🥬 Ingredientes:</strong> <span id="m-ing"></span><br><br>
                     <strong>⏱️ Tiempo:</strong> <span id="m-time"></span>
                 </div>
-                <a id="m-wa" href="#" target="_blank" class="btn-wa">🛒 Realizar Pedido por WhatsApp</a>
+                <a id="m-wa" href="#" target="_blank" class="btn-wa">🛒 Pedir por WhatsApp</a>
             </div>
         </div>
     </div>
 
     <script>
         const TEL_WHATSAPP = "524774902892";
+        const DIR_IMG = "img/"; 
+        const IMG_FALLBACK = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500&auto=format&fit=crop";
 
-        // === BLOQUE DE EDICIÓN DE PLATILLOS ===
         const platillos = [
             {
                 nombre: "Espaguetti",
-                precio: "30   $50   $60",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                precio: "50.00",
+                descripcion: "Pasta con receta de la casa.",
+                ingredientes: "Pasta, Tomate, Queso",
                 tiempo: "20 min",
-                imagen: ""
+                imagen: "esp.png" 
             },
             {
-                nombre: "Ensalada Premium",
+                nombre: "Chalupa",
                 precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
+                descripcion: "Mezcla fresca de temporada.",
+                ingredientes: "Lechuga, Cherry, Nueces",
                 tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
+                imagen: "chalu.png"
+            }
+            ,
 
              {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
+                nombre: "Collage con papas",
+                precio: "50.00",
+                descripcion: "Pasta con receta de la casa.",
+                ingredientes: "Pasta, Tomate, Queso",
+                tiempo: "20 min",
+                imagen: "collapa.png" 
+            },
+             {
+                nombre: "Espaguetti",
+                precio: "50.00",
+                descripcion: "Pasta con receta de la casa.",
+                ingredientes: "Pasta, Tomate, Queso",
+                tiempo: "20 min",
+                imagen: "esp.png" 
             },
 
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
 
              {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
+                nombre: "Espaguetti",
+                precio: "50.00",
+                descripcion: "Pasta con receta de la casa.",
+                ingredientes: "Pasta, Tomate, Queso",
+                tiempo: "20 min",
+                imagen: "esp.png" 
             },
 
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
 
              {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
+                nombre: "Espaguetti",
+                precio: "50.00",
+                descripcion: "Pasta con receta de la casa.",
+                ingredientes: "Pasta, Tomate, Queso",
+                tiempo: "20 min",
+                imagen: "esp.png" 
             },
 
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
 
              {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
+                nombre: "Espaguetti",
+                precio: "50.00",
+                descripcion: "Pasta con receta de la casa.",
+                ingredientes: "Pasta, Tomate, Queso",
+                tiempo: "20 min",
+                imagen: "esp.png" 
             },
 
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
+
 
              {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
-
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
-
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
-
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
-
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
-            },
-
-             {
-                nombre: "Ensalada Premium",
-                precio: "18.00",
-                descripcion: "Fina selección de vegetales de la estación con vinagreta artesanal.",
-                ingredientes: "Brotes tiernos, Tomate cherry, Nueces, Queso de cabra",
-                tiempo: "12 min",
-                imagen: "https://picsum.photos/600/400?random=10"
+                nombre: "Espaguetti",
+                precio: "50.00",
+                descripcion: "Pasta con receta de la casa.",
+                ingredientes: "Pasta, Tomate, Queso",
+                tiempo: "20 min",
+                imagen: "esp.png" 
             },
         ];
 
-        
-        const grid = document.getElementById('grid');
-        const modal = document.getElementById('modal');
-
-        function render() {
-            grid.innerHTML = platillos.map((p, i) => `
-                <div class="card" onclick="openModal(${i})">
-                    <img src="${p.imagen}" loading="lazy">
+        function render(lista = platillos) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = lista.map(p => {
+                const src = p.imagen ? (DIR_IMG + p.imagen) : IMG_FALLBACK;
+                return `
+                <div class="card" onclick="openModal('${p.nombre}')">
+                    <img src="${src}" alt="${p.nombre}" onerror="this.src='${IMG_FALLBACK}'">
                     <div class="card-info">
-                        <h3 style="font-family: 'Playfair Display';">${p.nombre}</h3>
-                        <p style="font-weight: 700; margin-top: 8px; font-size: 1.2rem;">$${p.precio}</p>
+                        <h3>${p.nombre}</h3>
+                        <p class="price">$${p.precio}</p>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
-        function openModal(i) {
-            const p = platillos[i];
-            document.getElementById('m-img').src = p.imagen;
+        function openModal(nombre) {
+            const p = platillos.find(item => item.nombre === nombre);
+            if(!p) return;
+            document.getElementById('m-img').src = p.imagen ? (DIR_IMG + p.imagen) : IMG_FALLBACK;
             document.getElementById('m-title').innerText = p.nombre;
             document.getElementById('m-desc').innerText = p.descripcion;
             document.getElementById('m-ing').innerText = p.ingredientes;
             document.getElementById('m-time').innerText = p.tiempo;
-            document.getElementById('m-wa').href = `https://wa.me/${TEL_WHATSAPP}?text=Hola! Me interesa el ${p.nombre}`;
-            modal.style.display = "flex";
+            document.getElementById('m-wa').href = `https://wa.me/${TEL_WHATSAPP}?text=Hola! Quiero pedir: ${p.nombre}`;
+            document.getElementById('modal').classList.add('active');
         }
 
-        function closeModal() { modal.style.display = "none"; }
-        window.onclick = (e) => { if(e.target == modal) closeModal(); }
+        function closeModal() { document.getElementById('modal').classList.remove('active'); }
 
-        document.getElementById('menuSearch').oninput = (e) => {
+        document.getElementById('menuSearch').addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
-            document.querySelectorAll('.card').forEach((card, i) => {
-                const match = platillos[i].nombre.toLowerCase().includes(val) || 
-                              platillos[i].ingredientes.toLowerCase().includes(val);
-                card.style.display = match ? "block" : "none";
-            });
-        };
+            const filtrados = platillos.filter(p => 
+                p.nombre.toLowerCase().includes(val) || 
+                p.ingredientes.toLowerCase().includes(val)
+            );
+            render(filtrados);
+        });
 
         render();
     </script>

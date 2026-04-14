@@ -132,8 +132,11 @@
                 <h2 id="m-title" style="font-family: 'Playfair Display'; color: var(--dark-green);"></h2>
                 <p id="m-desc" style="margin: 15px 0; color: #555;"></p>
                 <div class="details-box">
+                    
                     <strong>🥬 Ingredientes:</strong> <span id="m-ing"></span><br><br>
+                    <strong>🥬Ingredientes extra:</strong> <span id="m-xtra"></span><br><br>
                     <strong>⏱️ Tiempo:</strong> <span id="m-time"></span>
+                    
                 </div>
                 <a id="m-wa" href="#" target="_blank" class="btn-wa">🛒 Pedir por WhatsApp</a>
             </div>
@@ -141,128 +144,128 @@
     </div>
 
     <script>
-        const TEL_WHATSAPP = "524774902892";
+        const TEL_WHATSAPP = "524773993612";
         const DIR_IMG = "img/"; 
         const IMG_FALLBACK = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500&auto=format&fit=crop";
 
         const platillos = [
             {
                 nombre: "Espaguetti",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "CH $35   M $55   G $70",
+                descripcion: "jicama y pepino rallado",
+                ingredientes: "Jicama, pepino, cebolla filetada, sal, limon, chile, vinagre y queso.",
                 tiempo: "20 min",
-                imagen: "esp.png" 
+                imagen: "esp.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
             {
                 nombre: "Chalupa",
-                precio: "18.00",
-                descripcion: "Mezcla fresca de temporada.",
-                ingredientes: "Lechuga, Cherry, Nueces",
-                tiempo: "12 min",
-                imagen: "chalu.png"
+                precio: "$35",
+                descripcion: "Pepino divido por la mitad.",
+                ingredientes: "Sal, limon, chile, cebolla, vinagre y queso.",
+                tiempo: "20 min",
+                imagen: "chalu.png",extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             }
             ,
 
              {
                 nombre: "Collage con papas",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "CH $60   G $80",
+                descripcion: "Futra picada",
+                ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre, queso y papas a elegir(SABRITAS O BARCEL)",
                 tiempo: "20 min",
-                imagen: "collapa.png" 
+                imagen: "collapa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
              {
-                nombre: "Collage",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                nombre: "Collage (sin papas)",
+                precio: "CH $35  G $60",
+                descripcion: "Fruta picada.",
+                ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre y queso",
                 tiempo: "20 min",
-                imagen: "colla.png" 
+                imagen: "colla.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
              {
                 nombre: "Rebanada",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$35",
+                descripcion: "Jicama",
+                ingredientes: "Sal, limon, cebolla, chile, vinagre y queso",
                 tiempo: "20 min",
-                imagen: "reba.png" 
+                imagen: "reba.png",extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
              {
-                nombre: "Club sandwich",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                nombre: "MEGA sandwich",
+                precio: "$75",
+                descripcion: "3 Rebanadas de jicama con esoaguetti de pepino.",
+                ingredientes: "Jicama, pepino, sal, limon, vinagre chile, cebolla y queso.",
                 tiempo: "20 min",
-                imagen: "club.png" 
+                imagen: "club.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
              {
                 nombre: "Sandwich hawaiano",
                 precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                descripcion: "2 Rebanadas de jicama y una de piña",
+                ingredientes: "Jicama, pepino, piña, sal, limon, cebolla, chile, vinagre y queso",
                 tiempo: "20 min",
-                imagen: "clubha.png" 
+                imagen: "clubha.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
 
              {
-                nombre: "desco1",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                nombre: "Tarantula",
+                precio: "$55",
+                descripcion: "rebanada de jicama con espagueti de pepino",
+                ingredientes: "Jicama, pepino, sal, limon, cebolla, chile vinagre y queso.",
                 tiempo: "20 min",
-                imagen: "desco1.png" 
+                imagen: "desco1.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
             {
                 nombre: "Sopes",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$80",
+                descripcion: "5 Rebanadas pequeñas de jicama con espagueti de pepino.",
+                ingredientes: "Jicama, pepino, cebolla, sal, limon, chile, vinagre, queso y papas a elegir(SABRITAS O BARCEL)",
                 tiempo: "20 min",
-                imagen: "sope.png" 
+                imagen: "sope.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
 
             {
                 nombre: "Pico de gallo",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "CH $35  M $55 G $60",
+                descripcion: "Jicama cortada en fomra triangular.",
+                ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre y queso.",
                 tiempo: "20 min",
-                imagen: "pico.png" 
+                imagen: "pico.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
 
             {
                 nombre: "Partida",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$70",
+                descripcion: "Trozos genades de jicama",
+                ingredientes: "Jicama, sal, limon, chile, cebolla, vinagre y queso.",
                 tiempo: "20 min",
-                imagen: "parti.png" 
+                imagen: "parti.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
 
             {
-                nombre: "desco2",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                nombre: "Jungla",
+                precio: "$75",
+                descripcion: "Trozos genades de jicama y espaguetti de pepino",
+                ingredientes: "Jicama, pepino, sal, limon, chile, cebolla, vinagre y queso",
                 tiempo: "20 min",
-                imagen: "desco2.png" 
+                imagen: "desco2.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -270,11 +273,11 @@
 
             {
                 nombre: "Vaso raro",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "M $85  G $105",
+                descripcion: "Jicama y pepino con papas y cacahuates.",
+                ingredientes: "Jicama y pepino rallado aderezado con salsa de botella, cebolla filetada, sal, limon, chile, vinagre, queso, papas y cacahuates a legir(SABRITAS O BARCEL)",
                 tiempo: "20 min",
-                imagen: "vasor.png" 
+                imagen: "vasor.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -282,11 +285,11 @@
 
             {
                 nombre: "Cacahuates al gusto",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$35",
+                descripcion: "Cacahuates preparados.",
+                ingredientes: "Cacahuates a eljir(SABRITAS O BARCEL), sal, limon, salsa de botella, cebolla, vinagre y queso.",
                 tiempo: "20 min",
-                imagen: "cacah.png" 
+                imagen: "cacah.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -294,11 +297,11 @@
 
             {
                 nombre: "Caldo de oso",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "CH $35, M $45 G $80",
+                descripcion: "Vinagre de piña",
+                ingredientes: "Vinagre, sal, limon, cebolla, chile y queso.",
                 tiempo: "20 min",
-                imagen: "caldo.png" 
+                imagen: "caldo.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -306,11 +309,11 @@
 
             {
                 nombre: "Dedos arabes",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$75",
+                descripcion: "Laminas de jicama rellenas de pepino y piña enrrolladas",
+                ingredientes: "Jicama, pepino, piña, limon, sal, chile, cebolla, vinagre, queso y papas a elejir(SABRITAS O BARCEL)",
                 tiempo: "20 min",
-                imagen: "dedos.png" 
+                imagen: "dedos.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -318,11 +321,11 @@
 
             {
                 nombre: "Cohete",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$35",
+                descripcion: "Trozo de pepino con tiras de jicama",
+                ingredientes: "Jicama, pepino, sal, limon, chile, viangre y queso",
                 tiempo: "20 min",
-                imagen: "cohe.png" 
+                imagen: "cohe.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -330,11 +333,11 @@
 
             {
                 nombre: "Sushi",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$85",
+                descripcion: "Laminas de jicama con 2 capas de queso y rodajas de pepino enrolladas y cortadas en forma de sushi bañadas con salsa de la casa",
+                ingredientes: "Jicama, pepino, piña, sal, limon, chile, vinagre, queso, jugo maggie, salsa de botella y papas a elegir(SABRITAS O BARCEL) ",
                 tiempo: "20 min",
-                imagen: "sushi.png" 
+                imagen: "sushi.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -342,11 +345,11 @@
 
             {
                 nombre: "Delicioso",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "M $75  G $105",
+                descripcion: "Jicama, pepino y piña, camarones y cacahuates",
+                ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, polvo de camaron, limon, vinagre, sal, queso, camarones y cacahuates (SABRITAS O BARCEL) ",
                 tiempo: "20 min",
-                imagen: "deli.png" 
+                imagen: "deli.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -354,23 +357,11 @@
 
             {
                 nombre: "Mexicano",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "M $75 G $105",
+                descripcion: "Jicama, pepino y piña, papas y cueritos",
+                ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, limon, vinagre, sal, queso, cueritos y papas a elejir(SABRITAS O BARCEL)",
                 tiempo: "20 min",
-                imagen: "deli.png" 
-            },
-
-
-
-
-            {
-                nombre: "Volcan",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
-                tiempo: "20 min",
-                imagen: "vol.png" 
+                imagen: "deli.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -378,11 +369,11 @@
 
             {
                 nombre: "Flor",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$35",
+                descripcion: "Un pepino en forma de flor",
+                ingredientes: "Pepino, sal, limon y chile",
                 tiempo: "20 min",
-                imagen: "flor.png" 
+                imagen: "flor.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -390,22 +381,22 @@
 
             {
                 nombre: "Sandwich",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$50",
+                descripcion: "2 Rebanadas de jicama con una capa de trozitos de pepino",
+                ingredientes: "Jicama, pepino, sal, limon, viangre, cebolla y queso",
                 tiempo: "20 min",
-                imagen: "sand.png" 
+                imagen: "sand.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
 
             {
                 nombre: "Papas locas",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$60",
+                descripcion: "Papas enteras cubiertas de jicama y pepino rayado aderezado con salsa de botella",
+                ingredientes: "Papas, jicama, pepino, cebolla fileteada, salsa de botella, sal, limon, vinagre y queso",
                 tiempo: "20 min",
-                imagen: "papa.png" 
+                imagen: "papa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
@@ -413,66 +404,99 @@
 
             {
                 nombre: "MIX",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$75",
+                descripcion: "Trozos grandes y delgados de jicama y piña con espaguetti de pepino.",
+                ingredientes: "Jicama, pepino, piña, cebolla, sal, chile, limon, vinagre y queso.",
                 tiempo: "20 min",
-                imagen: "mix.png" 
+                imagen: "mix.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
 
 
             {
-                nombre: "Crepa",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                nombre: "Crepa con Papas(SABRITAS O BARCEL)",
+                precio: "$85",
+                descripcion: "4 laminas de jicama, rellenas de pepino rallado, pico de gallo y cueritos",
+                ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, limon, vinagre, sal, queso, cueritos y papas a elejir(SABRITAS O BARCEL)",
                 tiempo: "20 min",
-                imagen: "crepa.png" 
+                imagen: "crepa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
              {
                 nombre: "Bomba",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "CH $35 M $45 G $80",
+                descripcion: "Jicama, pepino y piña picada",
+                ingredientes: "Jicama, pepino, piña, cebolla, sal, chile, limon, vinagre y queso.",
                 tiempo: "20 min",
-                imagen: "bom.png" 
+                imagen: "bom.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
 
              {
                 nombre: "Mar y tierra",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "M $75  G $105",
+                descripcion: "Jicama, pepino y piña, camarones y cueritos",
+                ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, polvo de camaron, chile, limon, vinagre, sal, queso, camarones y cueritos ",
                 tiempo: "20 min",
-                imagen: "mar.png" 
+                imagen: "mar.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
              {
                 nombre: "Preparado para michelada",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "M $25 G $40",
+                descripcion: "Vaso escarchado(CLAMATO)",
+                ingredientes: "Clamato, jugo maggie, salsa inglesa, salsa de botella, tajin, limon, sal, chile, y rodajas de pepino",
                 tiempo: "20 min",
-                imagen: "prepa.png" 
+                imagen: "prepa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
 
 
 
              {
                 nombre: "Termo especial",
-                precio: "50.00",
-                descripcion: "Pasta con receta de la casa.",
-                ingredientes: "Pasta, Tomate, Queso",
+                precio: "$115",
+                descripcion: "Mezcla TOTAL",
+                ingredientes: "Jicama, pepino, piña, jitomate, cilantro, cebolla, ckamato, jugo maggie, sal de ajo, polvo de camaron, limon, sal, chile, vinagre, camarones, cueritos, papas y cacahuates(SABRITAS O BARCEL) y queso.",
                 tiempo: "20 min",
-                imagen: "termo.png" 
+                imagen: "termo.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
             },
+
+             {
+                nombre: "Vaso loco",
+                precio: "M $65  G $95",
+                descripcion: "Jicama y pepino con cacahuates.",
+                ingredientes: "Jicama y pepino rallado aderezado con salsa de botella, cebolla filetada, sal, limon, chile, vinagre, queso y cacahuates a legir(SABRITAS O BARCEL)",
+                tiempo: "20 min",
+                imagen: "vasor.png" ,
+                extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
+            },
+
+             {
+                nombre: "Araña",
+                precio: "$55",
+                descripcion: "Pepino dividido por la mitad con espaguetti de jicama.",
+                ingredientes: "Pepino, jicama, cebolla, sal, limon, chile, viangre y queso.",
+                tiempo: "20 min",
+                imagen: "chalu.png" ,
+                extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
+            },
+
+            {
+                nombre: "Club sandwich",
+                precio: "$55",
+                descripcion: "2 Rebanadas de jicama con pepino picado",
+                ingredientes: "Pepino, jicama, cebolla, sal, limon, chile, viangre y queso.",
+                extra:"",
+                tiempo: "20 min",
+                imagen: "club.png" ,
+                extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
+            
+            },
+
 
         ];
 
@@ -485,7 +509,7 @@
                     <img src="${src}" alt="${p.nombre}" onerror="this.src='${IMG_FALLBACK}'">
                     <div class="card-info">
                         <h3>${p.nombre}</h3>
-                        <p class="price">$${p.precio}</p>
+                        <p class="price">${p.precio}</p>
                     </div>
                 </div>
             `}).join('');
@@ -499,6 +523,11 @@
             document.getElementById('m-desc').innerText = p.descripcion;
             document.getElementById('m-ing').innerText = p.ingredientes;
             document.getElementById('m-time').innerText = p.tiempo;
+            document.getElementById('m-xtra').innerText = p.extra;
+            
+            
+
+            
             document.getElementById('m-wa').href = `https://wa.me/${TEL_WHATSAPP}?text=Hola! Quiero pedir: ${p.nombre}`;
             document.getElementById('modal').classList.add('active');
         }

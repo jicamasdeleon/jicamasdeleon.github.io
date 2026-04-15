@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Menú | Jicamas de Leon</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -39,13 +39,14 @@
             background: var(--white); display: flex; justify-content: center; align-items: center;
             z-index: 2000; border-bottom: 5px solid var(--primary);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: height 0.3s ease;
         }
         
         .logo-container img { 
             height: 110px; 
             width: auto; 
             object-fit: contain; 
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
         .logo-container img:hover { transform: scale(1.05); }
 
@@ -278,6 +279,63 @@
             visibility: visible;
             transform: translateX(-5px);
         }
+
+        /* =========================================
+           --- RESPONSIVIDAD (Móviles y Tablets) --- 
+           ========================================= */
+        @media (max-width: 768px) {
+            :root {
+                --nav-height: 100px; /* Barra superior más delgada en celulares */
+            }
+            .logo-container img { height: 70px; } /* Logo más pequeño */
+            
+            .branch-title { padding: 20px 20px 15px; }
+            .branch-title h2 { font-size: 1.8rem; }
+            
+            .categories-nav { gap: 8px; margin-bottom: 30px; }
+            .btn-category { padding: 8px 18px; font-size: 0.85rem; }
+            .btn-category.btn-especial { padding: 10px 22px; font-size: 0.95rem; }
+            
+            .menu-grid { 
+                /* Fuerza las tarjetas a ocupar el 100% del ancho (1 columna) en celulares */
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); 
+                gap: 25px; 
+            }
+            .img-container { height: 200px; } /* Imágenes un poco más compactas */
+            .card-info h3 { font-size: 1.3rem; }
+            
+            /* Ajustes para que la ventana Modal no se desborde en pantallas pequeñas */
+            .modal { padding: 15px; }
+            .modal-box { 
+                max-height: 95vh; /* Máximo 95% del alto de la pantalla */
+                display: flex;
+                flex-direction: column;
+                border-radius: 20px;
+            }
+            #m-img { height: 180px !important; } /* Imágen del modal más bajita */
+            .modal-body { 
+                overflow-y: auto; /* Permite deslizar si hay mucho texto */
+                padding: 20px 20px 25px; 
+            }
+            .modal-body h2 { font-size: 1.6rem; }
+            #m-desc { font-size: 0.9rem; margin-bottom: 20px; }
+            .info-grid { gap: 10px; margin-bottom: 20px; }
+            .info-item { padding: 12px; gap: 10px; border-radius: 12px; }
+            .info-item span.icon { font-size: 1.3rem; }
+            .info-item strong { font-size: 0.9rem; }
+            .info-item p { font-size: 0.85rem; }
+            .btn-wa { padding: 15px; font-size: 1rem; }
+            
+            .close { top: 10px; right: 10px; width: 35px; height: 35px; font-size: 24px; }
+            
+            /* Ajustes del botón flotante */
+            .btn-location {
+                width: 55px; height: 55px;
+                bottom: 20px; right: 20px;
+            }
+            .btn-location svg { width: 26px; height: 26px; }
+            .btn-location::before { display: none; } /* Ocultamos el letrerito en celulares para que no estorbe */
+        }
     </style>
 </head>
 <body>
@@ -303,7 +361,7 @@
         <div class="menu-grid" id="grid"></div>
     </div>
 
-    <a href="https://www.google.com/maps/place/JICAMAS+DE+LEON+V%C3%8DA+ALTA/@21.0780644,-101.608723,17z/data=!4m6!3m5!1s0x842bbd27aa372a4d:0x590fb71af021d81d!8m2!3d21.0781082!4d-101.6058869!16s%2Fg%2F11h45qkvh0?entry=ttu&g_ep=EgoyMDI2MDQxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-location">
+    <a href="https://www.google.com/maps/dir/21.063892,-101.620041/JICAMAS+DE+LEON+V%C3%8DA+ALTA,+San+Jose+el+Alto,+37545+Le%C3%B3n+de+los+Aldama,+Gto./@21.0782555,-101.6052017,17.92z/data=!4m9!4m8!1m1!4e1!1m5!1m1!1s0x842bbd27aa372a4d:0x590fb71af021d81d!2m2!1d-101.6058869!2d21.0781082?entry=ttu&g_ep=EgoyMDI2MDQxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-location">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
     </a>
 

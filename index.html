@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú | Jicamas de Leon</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -14,10 +14,10 @@
             --mint: #72ff77;
             --white: #ffffff;
             --whatsapp: #25d366;
-            --nav-height: 160px; 
+            --text-dark: #2c3e50;
+            --nav-height: 140px; 
         }
 
-        /* EVITA EL TEMBLOR: Forzar scrollbar y suavizar renderizado */
         html { 
             overflow-y: scroll; 
             scroll-behavior: smooth;
@@ -29,7 +29,7 @@
             font-family: 'Poppins', sans-serif; 
             background-color: var(--bg-light); 
             padding-top: var(--nav-height); 
-            color: #333;
+            color: var(--text-dark);
             -webkit-font-smoothing: antialiased;
         }
 
@@ -37,74 +37,246 @@
         nav {
             position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
             background: var(--white); display: flex; justify-content: center; align-items: center;
-            z-index: 2000; border-bottom: 4px solid var(--primary);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            z-index: 2000; border-bottom: 5px solid var(--primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
         
-        /* Dimensiones fijas para evitar saltos de diseño */
         .logo-container img { 
-            height: 120px; 
+            height: 110px; 
             width: auto; 
-            min-width: 120px;
             object-fit: contain; 
+            transition: transform 0.3s ease;
+        }
+        .logo-container img:hover { transform: scale(1.05); }
+
+        /* --- TÍTULO DE SUCURSAL --- */
+        .branch-title {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+        .branch-title h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-green);
+            font-size: 2.2rem;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+        .branch-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: var(--primary);
+            bottom: -8px;
+            left: 25%;
+            border-radius: 5px;
         }
 
-        /* --- BUSCADOR --- */
-        .search-area { padding: 40px 20px; text-align: center; }
-        #menuSearch {
-            width: 90%; max-width: 500px; padding: 15px 25px; border-radius: 50px;
-            border: 2px solid var(--mint); outline: none; font-size: 1rem;
-            transition: border-color 0.3s; 
+        /* --- BARRA DE CATEGORÍAS --- */
+        .categories-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            flex-wrap: wrap;
+            margin-top: 10px;
         }
-        #menuSearch:focus { border-color: var(--primary); }
+        
+        .btn-category {
+            background: var(--white);
+            color: var(--dark-green);
+            border: 2px solid var(--mint);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .btn-category:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-category.active {
+            background: var(--dark-green);
+            color: var(--white);
+            border-color: var(--dark-green);
+            box-shadow: 0 6px 15px rgba(0, 158, 66, 0.3);
+        }
+
+        /* --- BOTÓN ESPECIALIDADES --- */
+        .btn-category.btn-especial {
+            background-color: #ffea00; 
+            color: #000; 
+            border-color: #ffea00;
+            font-size: 1.1rem; 
+            padding: 12px 30px; 
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 234, 0, 0.4);
+        }
+        .btn-category.btn-especial:hover {
+            background-color: #ffd000;
+            border-color: #ffd000;
+            transform: translateY(-3px) scale(1.03);
+        }
+        .btn-category.btn-especial.active {
+            background-color: var(--dark-green);
+            color: var(--white);
+            border-color: var(--dark-green);
+            box-shadow: 0 6px 15px rgba(0, 158, 66, 0.3);
+        }
 
         /* --- GRID --- */
         .container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
         .menu-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 30px; 
+            gap: 35px; 
         }
 
-        /* Tarjetas con optimización de animación */
+        /* --- TARJETAS PRO --- */
         .card {
-            background: var(--white); border-radius: 25px; overflow: hidden;
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s;
-            cursor: pointer; border: 1px solid #eee;
-            backface-visibility: hidden; /* Evita vibración en Chrome/Safari */
+            background: var(--white); border-radius: 20px; overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer; 
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
         }
         .card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 35px rgba(0, 158, 66, 0.15); 
         }
-        .card img { width: 100%; height: 220px; object-fit: cover; background: #f0f0f0; }
-        .card-info { padding: 20px; text-align: center; }
-        .card-info h3 { font-family: 'Playfair Display'; font-size: 1.4rem; color: var(--dark-green); }
-        .price { font-weight: 700; color: var(--dark-green); font-size: 1.2rem; margin-top: 10px; }
+        .img-container {
+            width: 100%; height: 240px; overflow: hidden; background: #f8f9fa;
+        }
+        .card img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+        .card:hover img { transform: scale(1.08); }
+        
+        .card-info { padding: 25px 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
+        .card-info h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--dark-green); margin-bottom: 10px; line-height: 1.2;}
+        .price { 
+            display: inline-block;
+            font-weight: 600; color: var(--dark-green); font-size: 1.1rem; 
+            background: rgba(114, 255, 119, 0.2);
+            padding: 8px 15px; border-radius: 50px;
+            margin-top: auto;
+        }
 
-        /* --- MODAL --- */
+        /* --- MODAL PRO --- */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 3000;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 3000;
             justify-content: center; align-items: center; padding: 20px;
         }
-        .modal.active { display: flex; }
-        .modal-box { 
-            background: var(--white); max-width: 500px; width: 100%; 
-            border-radius: 30px; overflow: hidden; position: relative;
-            animation: fadeIn 0.3s ease-out;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .modal.active { display: flex; animation: modalBgFade 0.3s ease-out forwards; }
         
-        .close { position: absolute; top: 15px; right: 20px; font-size: 35px; color: white; cursor: pointer; z-index: 10; }
-        .modal-body { padding: 30px; }
-        .details-box { 
-            background: #f1fbf1; padding: 20px; border-radius: 20px; 
-            margin: 20px 0; border-left: 5px solid var(--primary);
+        @keyframes modalBgFade { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal-box { 
+            background: var(--white); max-width: 550px; width: 100%; 
+            border-radius: 25px; overflow: hidden; position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; transform: translateY(30px);
         }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        
+        .close { 
+            position: absolute; top: 15px; right: 20px; 
+            width: 40px; height: 40px; background: rgba(0,0,0,0.5);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 28px; color: white; cursor: pointer; z-index: 10;
+            transition: background 0.3s; line-height: 1;
+        }
+        .close:hover { background: var(--dark-green); }
+        
+        .modal-body { padding: 35px 30px; }
+        .modal-body h2 { font-family: 'Playfair Display', serif; color: var(--dark-green); font-size: 2rem; margin-bottom: 5px;}
+        #m-desc { color: #666; font-size: 1rem; margin-bottom: 25px; font-weight: 300; }
+        
+        .info-grid { display: grid; gap: 15px; margin-bottom: 30px; }
+        .info-item {
+            background: rgba(114, 255, 119, 0.1);
+            padding: 15px; border-radius: 15px;
+            display: flex; align-items: flex-start; gap: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        .info-item span.icon { font-size: 1.5rem; line-height: 1; }
+        .info-item strong { color: var(--dark-green); display: block; margin-bottom: 4px; font-size: 0.95rem; }
+        .info-item p { margin: 0; font-size: 0.9rem; color: var(--text-dark); line-height: 1.4; }
+
         .btn-wa {
-            display: block; background: var(--whatsapp); color: white; text-align: center;
-            padding: 18px; text-decoration: none; font-weight: 600; border-radius: 50px;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            background: var(--whatsapp); color: white; text-align: center;
+            padding: 18px; text-decoration: none; font-size: 1.1rem; font-weight: 600; 
+            border-radius: 50px; transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+        .btn-wa:hover { background: #1ebe57; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(37, 211, 102, 0.4); }
+
+        /* --- BOTÓN FLOTANTE UBICACIÓN --- */
+        .btn-location {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--white);
+            color: var(--dark-green);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 3px solid var(--primary);
+            text-decoration: none;
+        }
+        .btn-location:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 158, 66, 0.3);
+            background: var(--dark-green);
+            color: var(--white);
+            border-color: var(--dark-green);
+        }
+        .btn-location svg {
+            width: 32px;
+            height: 32px;
+            transition: fill 0.3s;
+        }
+        .btn-location::before {
+            content: "📍 Ver ubicación";
+            position: absolute;
+            right: 85px;
+            background: var(--dark-green);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .btn-location:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-5px);
         }
     </style>
 </head>
@@ -112,33 +284,65 @@
 
     <nav>
         <div class="logo-container">
-            <img src="img/jicamaslogo.png" alt="Logo Sergio" width="130" height="130">
+            <img src="img/jicamaslogo.png" alt="Logo Jicamas de Leon">
         </div>
     </nav>
 
-    <div class="search-area">
-        <input type="text" id="menuSearch" placeholder="Busca tu platillo favorito...">
+    <div class="branch-title">
+        <h2>| VIA ALTA |</h2>
+    </div>
+
+    <div class="categories-nav">
+        <button class="btn-category active" onclick="filtrarCategoria('todos', this)">Todos</button>
+        <button class="btn-category" onclick="filtrarCategoria('clasicos', this)">Clásicos</button>
+        <button class="btn-category" onclick="filtrarCategoria('papas', this)">Amantes de las Papas</button>
+        <button class="btn-category btn-especial" onclick="filtrarCategoria('especialidades', this)">Especialidades</button>
     </div>
 
     <div class="container">
         <div class="menu-grid" id="grid"></div>
     </div>
 
+    <a href="https://www.google.com/maps/place/JICAMAS+DE+LEON+V%C3%8DA+ALTA/@21.0780644,-101.608723,17z/data=!4m6!3m5!1s0x842bbd27aa372a4d:0x590fb71af021d81d!8m2!3d21.0781082!4d-101.6058869!16s%2Fg%2F11h45qkvh0?entry=ttu&g_ep=EgoyMDI2MDQxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-location">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    </a>
+
     <div id="modal" class="modal" onclick="closeModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="m-img" src="" style="width: 100%; height: 250px; object-fit: cover;">
+            <span class="close" onclick="closeModal()">×</span>
+            <img id="m-img" src="" style="width: 100%; height: 280px; object-fit: cover;">
             <div class="modal-body">
-                <h2 id="m-title" style="font-family: 'Playfair Display'; color: var(--dark-green);"></h2>
-                <p id="m-desc" style="margin: 15px 0; color: #555;"></p>
-                <div class="details-box">
-                    
-                    <strong>🥬 Ingredientes:</strong> <span id="m-ing"></span><br><br>
-                    <strong>🥬Ingredientes extra:</strong> <span id="m-xtra"></span><br><br>
-                    <strong>⏱️ Tiempo:</strong> <span id="m-time"></span>
-                    
+                <h2 id="m-title"></h2>
+                <p id="m-desc"></p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="icon">🥬</span>
+                        <div>
+                            <strong>Ingredientes base</strong>
+                            <p id="m-ing"></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">✨</span>
+                        <div>
+                            <strong>Ingredientes extra</strong>
+                            <p id="m-xtra"></p>
+                        </div>
+                    </div>
+                    <div class="info-item" style="border-left-color: var(--dark-green);">
+                        <span class="icon">⏱️</span>
+                        <div>
+                            <strong>Tiempo de preparacion via WhatsApp</strong>
+                            <p id="m-time"></p>
+                        </div>
+                    </div>
                 </div>
-                <a id="m-wa" href="#" target="_blank" class="btn-wa">🛒 Pedir por WhatsApp</a>
+
+                <a id="m-wa" href="#" target="_blank" class="btn-wa">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    Pedir por WhatsApp
+                </a>
             </div>
         </div>
     </div>
@@ -149,381 +353,38 @@
         const IMG_FALLBACK = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=500&auto=format&fit=crop";
 
         const platillos = [
-
-        {
-                nombre: "Bomba",
-                precio: "CH $35 M $45 G $80",
-                descripcion: "Jicama, pepino y piña picada",
-                ingredientes: "Jicama, pepino, piña, cebolla, sal, chile, limon, vinagre y queso.",
-                tiempo: "20 min",
-                imagen: "bom.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-            {
-                nombre: "Caldo de oso",
-                precio: "CH $35, M $45 G $80",
-                descripcion: "Vinagre de piña",
-                ingredientes: "Vinagre, sal, limon, cebolla, chile y queso.",
-                tiempo: "20 min",
-                imagen: "caldo.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-             {
-                nombre: "Collage con papas",
-                precio: "CH $60   G $80",
-                descripcion: "Futra picada",
-                ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre, queso y papas a elegir(SABRITAS O BARCEL)",
-                tiempo: "20 min",
-                imagen: "collapa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-            {
-                nombre: "Termo especial",
-                precio: "$115",
-                descripcion: "Mezcla TOTAL",
-                ingredientes: "Jicama, pepino, piña, jitomate, cilantro, cebolla, ckamato, jugo maggie, sal de ajo, polvo de camaron, limon, sal, chile, vinagre, camarones, cueritos, papas y cacahuates(SABRITAS O BARCEL) y queso.",
-                tiempo: "20 min",
-                imagen: "termo.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-             {
-                nombre: "Delicioso",
-                precio: "M $75  G $105",
-                descripcion: "Jicama, pepino y piña, camarones y cacahuates",
-                ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, polvo de camaron, limon, vinagre, sal, queso, camarones y cacahuates (SABRITAS O BARCEL) ",
-                tiempo: "20 min",
-                imagen: "deli.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-
-            {
-                nombre: "Mexicano",
-                precio: "M $75 G $105",
-                descripcion: "Jicama, pepino y piña, papas y cueritos",
-                ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, limon, vinagre, sal, queso, cueritos y papas a elejir(SABRITAS O BARCEL)",
-                tiempo: "20 min",
-                imagen: "deli.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-            {
-                nombre: "Mar y tierra",
-                precio: "M $75  G $105",
-                descripcion: "Jicama, pepino y piña, camarones y cueritos",
-                ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, polvo de camaron, chile, limon, vinagre, sal, queso, camarones y cueritos ",
-                tiempo: "20 min",
-                imagen: "mar.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-            
-            {
-                nombre: "Vaso raro",
-                precio: "M $85  G $105",
-                descripcion: "Jicama y pepino con papas y cacahuates.",
-                ingredientes: "Jicama y pepino rallado aderezado con salsa de botella, cebolla filetada, sal, limon, chile, vinagre, queso, papas y cacahuates a legir(SABRITAS O BARCEL)",
-                tiempo: "20 min",
-                imagen: "vasor.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-            
-            {
-                nombre: "Sushi",
-                precio: "$85",
-                descripcion: "Laminas de jicama con 2 capas de queso y rodajas de pepino enrolladas y cortadas en forma de sushi bañadas con salsa de la casa",
-                ingredientes: "Jicama, pepino, piña, sal, limon, chile, vinagre, queso, jugo maggie, salsa de botella y papas a elegir(SABRITAS O BARCEL) ",
-                tiempo: "20 min",
-                imagen: "sushi.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-               {
-                nombre: "Dedos arabes",
-                precio: "$75",
-                descripcion: "Laminas de jicama rellenas de pepino y piña enrrolladas",
-                ingredientes: "Jicama, pepino, piña, limon, sal, chile, cebolla, vinagre, queso y papas a elejir(SABRITAS O BARCEL)",
-                tiempo: "20 min",
-                imagen: "dedos.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-
-            {
-                nombre: "Espaguetti con papas",
-                precio: "CH $60   M $80   G $95",
-                descripcion: "jicama y pepino rallado con papas (SABRITAS O BARCEL)",
-                ingredientes: "Jicama, pepino, cebolla filetada, sal, limon, chile, vinagre, queso y papas(SABRITAS O BARCEL).",
-                tiempo: "20 min",
-                imagen: "esp.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-            {
-                nombre: "Sopes",
-                precio: "$80",
-                descripcion: "5 Rebanadas pequeñas de jicama con espagueti de pepino.",
-                ingredientes: "Jicama, pepino, cebolla, sal, limon, chile, vinagre, queso y papas a elegir(SABRITAS O BARCEL)",
-                tiempo: "20 min",
-                imagen: "sope.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-            {
-                nombre: "Chalupa",
-                precio: "$35",
-                descripcion: "Pepino divido por la mitad.",
-                ingredientes: "Sal, limon, chile, cebolla, vinagre y queso.",
-                tiempo: "20 min",
-                imagen: "chalu.png",extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            }
-            ,
-
-            
-             {
-                nombre: "Collage (sin papas)",
-                precio: "CH $35  G $60",
-                descripcion: "Fruta picada.",
-                ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre y queso",
-                tiempo: "20 min",
-                imagen: "colla.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-             {
-                nombre: "Rebanada",
-                precio: "$35",
-                descripcion: "Jicama",
-                ingredientes: "Sal, limon, cebolla, chile, vinagre y queso",
-                tiempo: "20 min",
-                imagen: "reba.png",extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-             {
-                nombre: "MEGA sandwich",
-                precio: "$75",
-                descripcion: "3 Rebanadas de jicama con esoaguetti de pepino.",
-                ingredientes: "Jicama, pepino, sal, limon, vinagre chile, cebolla y queso.",
-                tiempo: "20 min",
-                imagen: "club.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-             {
-                nombre: "Sandwich hawaiano",
-                precio: "50.00",
-                descripcion: "2 Rebanadas de jicama y una de piña",
-                ingredientes: "Jicama, pepino, piña, sal, limon, cebolla, chile, vinagre y queso",
-                tiempo: "20 min",
-                imagen: "clubha.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-             {
-                nombre: "Tarantula",
-                precio: "$55",
-                descripcion: "rebanada de jicama con espagueti de pepino",
-                ingredientes: "Jicama, pepino, sal, limon, cebolla, chile vinagre y queso.",
-                tiempo: "20 min",
-                imagen: "desco1.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-           
-
-
-
-            {
-                nombre: "Pico de gallo",
-                precio: "CH $35  M $55 G $60",
-                descripcion: "Jicama cortada en fomra triangular.",
-                ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre y queso.",
-                tiempo: "20 min",
-                imagen: "pico.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-            {
-                nombre: "Partida",
-                precio: "$70",
-                descripcion: "Trozos genades de jicama",
-                ingredientes: "Jicama, sal, limon, chile, cebolla, vinagre y queso.",
-                tiempo: "20 min",
-                imagen: "parti.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-            {
-                nombre: "Jungla",
-                precio: "$75",
-                descripcion: "Trozos genades de jicama y espaguetti de pepino",
-                ingredientes: "Jicama, pepino, sal, limon, chile, cebolla, vinagre y queso",
-                tiempo: "20 min",
-                imagen: "desco2.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-
-
-
-
-
-            {
-                nombre: "Cacahuates al gusto",
-                precio: "$35",
-                descripcion: "Cacahuates preparados.",
-                ingredientes: "Cacahuates a eljir(SABRITAS O BARCEL), sal, limon, salsa de botella, cebolla, vinagre y queso.",
-                tiempo: "20 min",
-                imagen: "cacah.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-
-            
-
-
-
-
-         
-
-
-
-            {
-                nombre: "Cohete",
-                precio: "$35",
-                descripcion: "Trozo de pepino con tiras de jicama",
-                ingredientes: "Jicama, pepino, sal, limon, chile, viangre y queso",
-                tiempo: "20 min",
-                imagen: "cohe.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-
-
-
-
-           
-
-
-
-
-            {
-                nombre: "Flor",
-                precio: "$35",
-                descripcion: "Un pepino en forma de flor",
-                ingredientes: "Pepino, sal, limon y chile",
-                tiempo: "20 min",
-                imagen: "flor.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-
-            {
-                nombre: "Sandwich",
-                precio: "$50",
-                descripcion: "2 Rebanadas de jicama con una capa de trozitos de pepino",
-                ingredientes: "Jicama, pepino, sal, limon, viangre, cebolla y queso",
-                tiempo: "20 min",
-                imagen: "sand.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-            {
-                nombre: "Papas locas",
-                precio: "$60",
-                descripcion: "Papas enteras cubiertas de jicama y pepino rayado aderezado con salsa de botella",
-                ingredientes: "Papas, jicama, pepino, cebolla fileteada, salsa de botella, sal, limon, vinagre y queso",
-                tiempo: "20 min",
-                imagen: "papa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-
-            {
-                nombre: "MIX",
-                precio: "$75",
-                descripcion: "Trozos grandes y delgados de jicama y piña con espaguetti de pepino.",
-                ingredientes: "Jicama, pepino, piña, cebolla, sal, chile, limon, vinagre y queso.",
-                tiempo: "20 min",
-                imagen: "mix.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-
-            {
-                nombre: "Crepa con Papas(SABRITAS O BARCEL)",
-                precio: "$85",
-                descripcion: "4 laminas de jicama, rellenas de pepino rallado, pico de gallo y cueritos",
-                ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, limon, vinagre, sal, queso, cueritos y papas a elejir(SABRITAS O BARCEL)",
-                tiempo: "20 min",
-                imagen: "crepa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-             
-
-
-             
-
-
-             {
-                nombre: "Preparado para michelada",
-                precio: "M $25 G $40",
-                descripcion: "Vaso escarchado(CLAMATO)",
-                ingredientes: "Clamato, jugo maggie, salsa inglesa, salsa de botella, tajin, limon, sal, chile, y rodajas de pepino",
-                tiempo: "20 min",
-                imagen: "prepa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-
-
-             
-
-             {
-                nombre: "Vaso loco",
-                precio: "M $65  G $95",
-                descripcion: "Jicama y pepino con cacahuates.",
-                ingredientes: "Jicama y pepino rallado aderezado con salsa de botella, cebolla filetada, sal, limon, chile, vinagre, queso y cacahuates a legir(SABRITAS O BARCEL)",
-                tiempo: "20 min",
-                imagen: "vasor.png" ,
-                extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-             {
-                nombre: "Araña",
-                precio: "$55",
-                descripcion: "Pepino dividido por la mitad con espaguetti de jicama.",
-                ingredientes: "Pepino, jicama, cebolla, sal, limon, chile, viangre y queso.",
-                tiempo: "20 min",
-                imagen: "chalu.png" ,
-                extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            },
-
-            {
-                nombre: "Club sandwich",
-                precio: "$55",
-                descripcion: "2 Rebanadas de jicama con pepino picado",
-                ingredientes: "Pepino, jicama, cebolla, sal, limon, chile, viangre y queso.",
-                extra:"",
-                tiempo: "20 min",
-                imagen: "club.png" ,
-                extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10",
-            
-            },
-
-
+            { categoria: "clasicos", nombre: "Bomba", precio: "CH $35 M $45 G $80", descripcion: "Jicama, pepino y piña picada", ingredientes: "Jicama, pepino, piña, cebolla, sal, chile, limon, vinagre y queso.", tiempo: "20 min", imagen: "bom.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Caldo de oso", precio: "CH $35, M $45 G $80", descripcion: "Vinagre de piña", ingredientes: "Vinagre, sal, limon, cebolla, chile y queso.", tiempo: "20 min", imagen: "caldo.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "papas", nombre: "Collage con papas", precio: "CH $60   G $80", descripcion: "Futra picada", ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre, queso y papas a elegir(SABRITAS O BARCEL)", tiempo: "20 min", imagen: "collapa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "especialidades", nombre: "Termo especial", precio: "$115", descripcion: "Mezcla TOTAL", ingredientes: "Jicama, pepino, piña, jitomate, cilantro, cebolla, ckamato, jugo maggie, sal de ajo, polvo de camaron, limon, sal, chile, vinagre, camarones, cueritos, papas y cacahuates(SABRITAS O BARCEL) y queso.", tiempo: "20 min", imagen: "termo.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "especialidades", nombre: "Delicioso", precio: "M $75  G $105", descripcion: "Jicama, pepino y piña, camarones y cacahuates", ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, polvo de camaron, limon, vinagre, sal, queso, camarones y cacahuates (SABRITAS O BARCEL) ", tiempo: "20 min", imagen: "deli.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "especialidades", nombre: "Mexicano", precio: "M $75 G $105", descripcion: "Jicama, pepino y piña, papas y cueritos", ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, limon, vinagre, sal, queso, cueritos y papas a elejir(SABRITAS O BARCEL)", tiempo: "20 min", imagen: "deli.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "especialidades", nombre: "Mar y tierra", precio: "M $75  G $105", descripcion: "Jicama, pepino y piña, camarones y cueritos", ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, polvo de camaron, chile, limon, vinagre, sal, queso, camarones y cueritos ", tiempo: "20 min", imagen: "mar.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "papas", nombre: "Vaso raro", precio: "M $85  G $105", descripcion: "Jicama y pepino con papas y cacahuates.", ingredientes: "Jicama y pepino rallado aderezado con salsa de botella, cebolla filetada, sal, limon, chile, vinagre, queso, papas y cacahuates a legir(SABRITAS O BARCEL)", tiempo: "20 min", imagen: "vasor.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "especialidades", nombre: "Sushi", precio: "$85", descripcion: "Laminas de jicama con 2 capas de queso y rodajas de pepino enrolladas y cortadas en forma de sushi bañadas con salsa de la casa", ingredientes: "Jicama, pepino, piña, sal, limon, chile, vinagre, queso, jugo maggie, salsa de botella y papas a elegir(SABRITAS O BARCEL) ", tiempo: "20 min", imagen: "sushi.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "especialidades", nombre: "Dedos arabes", precio: "$75", descripcion: "Laminas de jicama rellenas de pepino y piña enrrolladas", ingredientes: "Jicama, pepino, piña, limon, sal, chile, cebolla, vinagre, queso y papas a elejir(SABRITAS O BARCEL)", tiempo: "20 min", imagen: "dedos.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "papas", nombre: "Espaguetti con papas", precio: "CH $60   M $80   G $95", descripcion: "jicama y pepino rallado con papas (SABRITAS O BARCEL)", ingredientes: "Jicama, pepino, cebolla filetada, sal, limon, chile, vinagre, queso y papas(SABRITAS O BARCEL).", tiempo: "20 min", imagen: "esp.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "especialidades", nombre: "Sopes", precio: "$80", descripcion: "5 Rebanadas pequeñas de jicama con espagueti de pepino.", ingredientes: "Jicama, pepino, cebolla, sal, limon, chile, vinagre, queso y papas a elegir(SABRITAS O BARCEL)", tiempo: "20 min", imagen: "sope.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Chalupa", precio: "$35", descripcion: "Pepino divido por la mitad.", ingredientes: "Sal, limon, chile, cebolla, vinagre y queso.", tiempo: "20 min", imagen: "chalu.png",extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Collage (sin papas)", precio: "CH $35  G $60", descripcion: "Fruta picada.", ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre y queso", tiempo: "20 min", imagen: "colla.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Rebanada", precio: "$35", descripcion: "Jicama", ingredientes: "Sal, limon, cebolla, chile, vinagre y queso", tiempo: "20 min", imagen: "reba.png",extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "MEGA sandwich", precio: "$75", descripcion: "3 Rebanadas de jicama con esoaguetti de pepino.", ingredientes: "Jicama, pepino, sal, limon, vinagre chile, cebolla y queso.", tiempo: "20 min", imagen: "club.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Sandwich hawaiano", precio: "50.00", descripcion: "2 Rebanadas de jicama y una de piña", ingredientes: "Jicama, pepino, piña, sal, limon, cebolla, chile, vinagre y queso", tiempo: "20 min", imagen: "clubha.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Tarantula", precio: "$55", descripcion: "rebanada de jicama con espagueti de pepino", ingredientes: "Jicama, pepino, sal, limon, cebolla, chile vinagre y queso.", tiempo: "20 min", imagen: "desco1.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Pico de gallo", precio: "CH $35  M $55 G $60", descripcion: "Jicama cortada en fomra triangular.", ingredientes: "Jicama, pepino, piña, cebolla, sal, limon, chile, vinagre y queso.", tiempo: "20 min", imagen: "pico.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Partida", precio: "$70", descripcion: "Trozos genades de jicama", ingredientes: "Jicama, sal, limon, chile, cebolla, vinagre y queso.", tiempo: "20 min", imagen: "parti.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Jungla", precio: "$75", descripcion: "Trozos genades de jicama y espaguetti de pepino", ingredientes: "Jicama, pepino, sal, limon, chile, cebolla, vinagre y queso", tiempo: "20 min", imagen: "desco2.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "papas", nombre: "Cacahuates al gusto", precio: "$35", descripcion: "Cacahuates preparados.", ingredientes: "Cacahuates a eljir(SABRITAS O BARCEL), sal, limon, salsa de botella, cebolla, vinagre y queso.", tiempo: "20 min", imagen: "cacah.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Cohete", precio: "$35", descripcion: "Trozo de pepino con tiras de jicama", ingredientes: "Jicama, pepino, sal, limon, chile, viangre y queso", tiempo: "20 min", imagen: "cohe.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Flor", precio: "$35", descripcion: "Un pepino en forma de flor", ingredientes: "Pepino, sal, limon y chile", tiempo: "20 min", imagen: "flor.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Sandwich", precio: "$50", descripcion: "2 Rebanadas de jicama con una capa de trozitos de pepino", ingredientes: "Jicama, pepino, sal, limon, viangre, cebolla y queso", tiempo: "20 min", imagen: "sand.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "papas", nombre: "Papas locas", precio: "$60", descripcion: "Papas enteras cubiertas de jicama y pepino rayado aderezado con salsa de botella", ingredientes: "Papas, jicama, pepino, cebolla fileteada, salsa de botella, sal, limon, vinagre y queso", tiempo: "20 min", imagen: "papa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "MIX", precio: "$75", descripcion: "Trozos grandes y delgados de jicama y piña con espaguetti de pepino.", ingredientes: "Jicama, pepino, piña, cebolla, sal, chile, limon, vinagre y queso.", tiempo: "20 min", imagen: "mix.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "especialidades", nombre: "Crepa con Papas(SABRITAS O BARCEL)", precio: "$85", descripcion: "4 laminas de jicama, rellenas de pepino rallado, pico de gallo y cueritos", ingredientes: "Jicama, pepino, piña, jitomate, cebolla, cilantro, clamato, jugo maggie, sal de ajo, limon, vinagre, sal, queso, cueritos y papas a elejir(SABRITAS O BARCEL)", tiempo: "20 min", imagen: "crepa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Preparado para michelada", precio: "M $25 G $40", descripcion: "Vaso escarchado(CLAMATO)", ingredientes: "Clamato, jugo maggie, salsa inglesa, salsa de botella, tajin, limon, sal, chile, y rodajas de pepino", tiempo: "20 min", imagen: "prepa.png" ,extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "papas", nombre: "Vaso loco", precio: "M $65  G $95", descripcion: "Jicama y pepino con cacahuates.", ingredientes: "Jicama y pepino rallado aderezado con salsa de botella, cebolla filetada, sal, limon, chile, vinagre, queso y cacahuates a legir(SABRITAS O BARCEL)", tiempo: "20 min", imagen: "vasor.png" , extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Araña", precio: "$55", descripcion: "Pepino dividido por la mitad con espaguetti de jicama.", ingredientes: "Pepino, jicama, cebolla, sal, limon, chile, viangre y queso.", tiempo: "20 min", imagen: "chalu.png" , extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
+            { categoria: "clasicos", nombre: "Club sandwich", precio: "$55", descripcion: "2 Rebanadas de jicama con pepino picado", ingredientes: "Pepino, jicama, cebolla, sal, limon, chile, viangre y queso.", extra:"", tiempo: "20 min", imagen: "club.png" , extra:"Papas o cacahuates $25 - Camarones $20 - Cueritos $10", },
         ];
 
         function render(lista = platillos) {
@@ -532,13 +393,27 @@
                 const src = p.imagen ? (DIR_IMG + p.imagen) : IMG_FALLBACK;
                 return `
                 <div class="card" onclick="openModal('${p.nombre}')">
-                    <img src="${src}" alt="${p.nombre}" onerror="this.src='${IMG_FALLBACK}'">
+                    <div class="img-container">
+                        <img src="${src}" alt="${p.nombre}" onerror="this.src='${IMG_FALLBACK}'">
+                    </div>
                     <div class="card-info">
                         <h3>${p.nombre}</h3>
-                        <p class="price">${p.precio}</p>
+                        <span class="price">${p.precio}</span>
                     </div>
                 </div>
             `}).join('');
+        }
+
+        function filtrarCategoria(tipo, botonRef) {
+            document.querySelectorAll('.btn-category').forEach(btn => btn.classList.remove('active'));
+            botonRef.classList.add('active');
+            
+            if (tipo === 'todos') {
+                render(platillos);
+            } else {
+                const filtrados = platillos.filter(p => p.categoria === tipo);
+                render(filtrados);
+            }
         }
 
         function openModal(nombre) {
@@ -549,25 +424,13 @@
             document.getElementById('m-desc').innerText = p.descripcion;
             document.getElementById('m-ing').innerText = p.ingredientes;
             document.getElementById('m-time').innerText = p.tiempo;
-            document.getElementById('m-xtra').innerText = p.extra;
-            
-            
-
+            document.getElementById('m-xtra').innerText = p.extra ? p.extra : "No aplica";
             
             document.getElementById('m-wa').href = `https://wa.me/${TEL_WHATSAPP}?text=Hola! Quiero pedir: ${p.nombre}`;
             document.getElementById('modal').classList.add('active');
         }
 
         function closeModal() { document.getElementById('modal').classList.remove('active'); }
-
-        document.getElementById('menuSearch').addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase();
-            const filtrados = platillos.filter(p => 
-                p.nombre.toLowerCase().includes(val) || 
-                p.ingredientes.toLowerCase().includes(val)
-            );
-            render(filtrados);
-        });
 
         render();
     </script>
